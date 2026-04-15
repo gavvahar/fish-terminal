@@ -9,7 +9,9 @@ if status is-interactive
     end
 end
 
-set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
+if test -S $HOME/.bitwarden-ssh-agent.sock
+    set -x SSH_AUTH_SOCK $HOME/.bitwarden-ssh-agent.sock
+end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
