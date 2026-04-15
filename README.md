@@ -58,4 +58,20 @@ Then restart fish or run:
 source ~/.config/fish/config.fish
 ```
 
+## Quick Install
+
+On a new machine, run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/install.sh | bash
+```
+
+This will:
+1. Install fish, zoxide, and fzf
+2. Optionally install Miniconda
+3. Clone this config into `~/.config/fish`
+4. Set fish as your default shell
+
+After it completes, logout and login for all changes to take effect.
+
 That's it!
