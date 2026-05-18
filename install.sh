@@ -66,13 +66,14 @@ else
     if [[ "$install_conda" == "y" ]]; then
         echo "Installing Miniconda..."
         if [[ "$OS" == "mac" ]]; then
-            MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
+            curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
+            bash Miniconda3-latest-MacOSX-arm64.sh -b -p "$HOME/miniconda3"
+            rm Miniconda3-latest-MacOSX-arm64.sh
         else
-            MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+            curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+            bash Miniconda3-latest-Linux-x86_64.sh -b -p "$HOME/miniconda3"
+            rm Miniconda3-latest-Linux-x86_64.sh
         fi
-        curl -fsSL "$MINICONDA_URL" -o /tmp/miniconda.sh
-        bash /tmp/miniconda.sh -b -p "$HOME/miniconda3"
-        rm /tmp/miniconda.sh
         "$HOME/miniconda3/bin/conda" init fish
         echo "✅ Miniconda installed"
     else
