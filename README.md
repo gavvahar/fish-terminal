@@ -87,7 +87,7 @@ After it completes, logout and login for all changes to take effect.
 To pull just the latest `config.fish` without changing anything else:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/config.fish -o ~/.config/fish/config.fish
+mkdir -p ~/.config/fish && curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/config.fish -o ~/.config/fish/config.fish
 ```
 
 Then reload it:

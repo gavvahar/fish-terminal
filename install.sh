@@ -15,54 +15,76 @@ else
 fi
 
 # ── Fish ──────────────────────────────────────────────────────────────────────
-echo "Installing fish..."
-if [[ "$OS" == "mac" ]]; then
-    brew install fish
+if command -v fish &>/dev/null; then
+    echo "✅ Fish already installed"
 else
-    sudo apt update && sudo apt install -y fish
+    echo "Installing fish..."
+    if [[ "$OS" == "mac" ]]; then
+        brew install fish
+    else
+        sudo apt update && sudo apt install -y fish
+    fi
+    echo "✅ Fish installed"
 fi
 
 FISH_PATH=$(which fish)
 if ! grep -q "$FISH_PATH" /etc/shells; then
     echo "$FISH_PATH" | sudo tee -a /etc/shells
 fi
-chsh -s "$FISH_PATH"
-echo "✅ Fish installed and set as default shell"
+
+if [[ "$SHELL" != "$FISH_PATH" ]]; then
+    chsh -s "$FISH_PATH"
+    echo "✅ Fish set as default shell"
+else
+    echo "✅ Fish is already the default shell"
+fi
 
 # ── Zoxide ────────────────────────────────────────────────────────────────────
-echo "Installing zoxide..."
-if [[ "$OS" == "mac" ]]; then
-    brew install zoxide
+if command -v zoxide &>/dev/null; then
+    echo "✅ Zoxide already installed"
 else
-    sudo apt install -y zoxide
+    echo "Installing zoxide..."
+    if [[ "$OS" == "mac" ]]; then
+        brew install zoxide
+    else
+        sudo apt install -y zoxide
+    fi
+    echo "✅ Zoxide installed"
 fi
-echo "✅ Zoxide installed"
 
 # ── Fzf ───────────────────────────────────────────────────────────────────────
-echo "Installing fzf..."
-if [[ "$OS" == "mac" ]]; then
-    brew install fzf
+if command -v fzf &>/dev/null; then
+    echo "✅ Fzf already installed"
 else
-    sudo apt install -y fzf
+    echo "Installing fzf..."
+    if [[ "$OS" == "mac" ]]; then
+        brew install fzf
+    else
+        sudo apt install -y fzf
+    fi
+    echo "✅ Fzf installed"
 fi
-echo "✅ Fzf installed"
 
 # ── Miniconda ─────────────────────────────────────────────────────────────────
-read -p "Install Miniconda? (y/n): " install_conda
-if [[ "$install_conda" == "y" ]]; then
-    echo "Installing Miniconda..."
-    if [[ "$OS" == "mac" ]]; then
-        MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
-    else
-        MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-    fi
-    curl -fsSL "$MINICONDA_URL" -o /tmp/miniconda.sh
-    bash /tmp/miniconda.sh -b -p "$HOME/miniconda3"
-    rm /tmp/miniconda.sh
-    "$HOME/miniconda3/bin/conda" init fish
-    echo "✅ Miniconda installed"
+if command -v conda &>/dev/null; then
+    echo "✅ Conda already installed"
 else
-    echo "⏭️  Skipping Miniconda"
+    read -p "Install Miniconda? (y/n): " install_conda
+    if [[ "$install_conda" == "y" ]]; then
+        echo "Installing Miniconda..."
+        if [[ "$OS" == "mac" ]]; then
+            MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
+        else
+            MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+        fi
+        curl -fsSL "$MINICONDA_URL" -o /tmp/miniconda.sh
+        bash /tmp/miniconda.sh -b -p "$HOME/miniconda3"
+        rm /tmp/miniconda.sh
+        "$HOME/miniconda3/bin/conda" init fish
+        echo "✅ Miniconda installed"
+    else
+        echo "⏭️  Skipping Miniconda"
+    fi
 fi
 
 # ── Bitwarden SSH Agent ────────────────────────────────────────────────────────
