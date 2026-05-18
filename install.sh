@@ -53,11 +53,8 @@ if command -v fzf &>/dev/null; then
     echo "✅ Fzf already installed"
 else
     echo "Installing fzf..."
-    if [[ "$OS" == "mac" ]]; then
-        brew install fzf
-    else
-        sudo apt install -y fzf
-    fi
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
     echo "✅ Fzf installed"
 fi
 
