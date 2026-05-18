@@ -44,11 +44,7 @@ if command -v zoxide &>/dev/null; then
     echo "✅ Zoxide already installed"
 else
     echo "Installing zoxide..."
-    if [[ "$OS" == "mac" ]]; then
-        brew install zoxide
-    else
-        sudo apt install -y zoxide
-    fi
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
     echo "✅ Zoxide installed"
 fi
 
