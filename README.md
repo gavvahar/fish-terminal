@@ -7,6 +7,7 @@ My personal fish shell configuration.
 Install these first before cloning:
 
 ### Fish Shell
+
 ```bash
 # Ubuntu/Debian
 sudo apt install fish
@@ -19,6 +20,7 @@ chsh -s $(which fish)
 ```
 
 ### Zoxide (smart cd)
+
 ```bash
 # Ubuntu/Debian
 sudo apt install zoxide
@@ -28,6 +30,7 @@ brew install zoxide
 ```
 
 ### Fzf (fuzzy finder)
+
 ```bash
 # Ubuntu/Debian
 sudo apt install fzf
@@ -37,12 +40,15 @@ brew install fzf
 ```
 
 ### Miniconda (optional)
-Download from https://docs.conda.io/en/latest/miniconda.html and run the installer, then run:
+
+Download from [docs.conda.io](https://docs.conda.io/en/latest/miniconda.html) and run the installer, then run:
+
 ```bash
 conda init fish
 ```
 
 ### Bitwarden SSH Agent (optional)
+
 Enable the SSH agent in Bitwarden desktop app settings.
 
 ## Install
@@ -54,6 +60,7 @@ git clone git@github.com:yourusername/fish-config.git ~/.config/fish
 ```
 
 Then restart fish or run:
+
 ```fish
 source ~/.config/fish/config.fish
 ```
@@ -67,11 +74,26 @@ curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/install
 ```
 
 This will:
+
 1. Install fish, zoxide, and fzf
 2. Optionally install Miniconda
 3. Clone this config into `~/.config/fish`
 4. Set fish as your default shell
 
 After it completes, logout and login for all changes to take effect.
+
+## Update config.fish only
+
+To pull just the latest `config.fish` without changing anything else:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/config.fish -o ~/.config/fish/config.fish
+```
+
+Then reload it:
+
+```fish
+source ~/.config/fish/config.fish
+```
 
 That's it!
