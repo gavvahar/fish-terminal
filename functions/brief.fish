@@ -14,7 +14,20 @@ function brief
     set cpu_load (cat /proc/loadavg 2>/dev/null | awk '{print $1}')
     set disk_root (df -h / 2>/dev/null | awk 'NR==2 {print $3 "/" $2 " (" $5 ")"}')
     set ip_addr (ip route get 1 2>/dev/null | awk 'NR==1 {for(i=1;i<=NF;i++) if ($i=="src") {print $(i+1); exit}}')
-    set weather (python3 ~/.config/fish/get_weather.py 2>/dev/null)
+    set weather_lines
+    if test (count $JARVIS_LOCATIONS) -gt 0
+        for loc in $JARVIS_LOCATIONS
+            set w (python3 ~/.config/fish/get_weather.py $loc 2>/dev/null)
+            if test -n "$w"
+                set weather_lines $weather_lines $w
+            end
+        end
+    else
+        set w (python3 ~/.config/fish/get_weather.py 2>/dev/null)
+        if test -n "$w"
+            set weather_lines $w
+        end
+    end
 
     set interior 54
     set sep (string repeat -n $interior "═")
@@ -27,9 +40,16 @@ function brief
     set_color cyan
     echo "  ║"(string pad -r -w $interior "  Good $period. Here is your briefing.")"║"
     echo "  ║"(string pad -r -w $interior "  $datetime")"║"
-    if test -n "$weather"
+    if test (count $weather_lines) -gt 0
         echo "  ║"(string pad -r -w $interior "")"║"
-        echo "  ║"(string pad -r -w $interior "  Weather:  $weather")"║"
+        if test (count $weather_lines) -eq 1
+            echo "  ║"(string pad -r -w $interior "  Weather:  $weather_lines[1]")"║"
+        else
+            echo "  ║"(string pad -r -w $interior "  Weather:")"║"
+            for w in $weather_lines
+                echo "  ║"(string pad -r -w $interior "    $w")"║"
+            end
+        end
     end
     set_color --bold cyan
     echo "  ╠$sep╣"
