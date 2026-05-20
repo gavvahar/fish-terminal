@@ -14,6 +14,23 @@ else
     exit 1
 fi
 
+# ── Nerd Font ─────────────────────────────────────────────────────────────────
+if fc-list 2>/dev/null | grep -qi "JetBrainsMono"; then
+    echo "✅ JetBrainsMono Nerd Font already installed"
+else
+    echo "Installing JetBrainsMono Nerd Font..."
+    if [[ "$OS" == "mac" ]]; then
+        brew install --cask font-jetbrains-mono-nerd-font
+    else
+        mkdir -p ~/.local/share/fonts
+        curl -fLO --output-dir ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+        unzip -o ~/.local/share/fonts/JetBrainsMono.zip -d ~/.local/share/fonts
+        rm ~/.local/share/fonts/JetBrainsMono.zip
+        fc-cache -fv
+    fi
+    echo "✅ JetBrainsMono Nerd Font installed"
+fi
+
 # ── Fish ──────────────────────────────────────────────────────────────────────
 if command -v fish &>/dev/null; then
     echo "✅ Fish already installed"
