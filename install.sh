@@ -117,14 +117,14 @@ if [[ -d "$HOME/.local/bin" ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Inject zoxide bindings into fish initialization configuration file
+# FIXED: Smart initialization check. If the config file was cloned from your repo
+# and already contains zoxide/path setups, this block skips configuration appending entirely.
 if [[ -f "$HOME/.config/fish/config.fish" ]]; then
-    if ! grep -q "zoxide init fish" "$HOME/.config/fish/config.fish"; then
+    if ! grep -q "zoxide" "$HOME/.config/fish/config.fish"; then
         echo -e "\n# Initialize Zoxide (z command)\nif command -v zoxide &>/dev/null\n    zoxide init fish | source\nend" >> "$HOME/.config/fish/config.fish"
     fi
     
-    # Ensure fish permanently maintains awareness of local user binaries 
-    if ! grep -q "fish_add_path ~/.local/bin" "$HOME/.config/fish/config.fish"; then
+    if ! grep -q "fish_add_path" "$HOME/.config/fish/config.fish"; then
         echo -e "fish_add_path ~/.local/bin" >> "$HOME/.config/fish/config.fish"
     fi
 fi
