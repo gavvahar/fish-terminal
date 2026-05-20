@@ -361,8 +361,8 @@ symbol = "xmake "
 symbol = "zig "
 
 [custom.node]
-command = 'node --version 2>/dev/null | grep "^v"'
-when = "true"
+command = "node --version"
+when = '[ "$CONDA_DEFAULT_ENV" != "base" ] && [ -f "$CONDA_PREFIX/bin/node" ]'
 ignore_timeout = true
 symbol = "nodejs "
 style = "bold green"
