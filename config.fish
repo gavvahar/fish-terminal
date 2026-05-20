@@ -1,6 +1,16 @@
 # 1. Ensure Fish can find zoxide and other local binaries
 fish_add_path $HOME/.local/bin
 
+# JARVIS color theme
+set -g fish_color_command cyan
+set -g fish_color_keyword blue
+set -g fish_color_param white
+set -g fish_color_error red
+set -g fish_color_comment brblack
+set -g fish_color_quote yellow
+set -g fish_color_operator cyan
+set -g fish_color_autosuggestion brblack
+
 # 2. Starship prompt
 starship init fish | source
 
