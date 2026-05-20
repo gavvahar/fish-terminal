@@ -33,9 +33,7 @@ if ! grep -q "$FISH_PATH" /etc/shells; then
 fi
 
 if [[ "$SHELL" != "$FISH_PATH" ]]; then
-    # Fixed: Using sudo along with explicitly passing $USER prevents the PAM auth failure
-    # when executing scripts piped directly from a curl command.
-    sudo chsh -s "$FISH_PATH" "$USER"
+    chsh -s "$FISH_PATH"
     echo "✅ Fish set as default shell"
 else
     echo "✅ Fish is already the default shell"
@@ -55,10 +53,8 @@ if command -v fzf &>/dev/null; then
     echo "✅ Fzf already installed"
 else
     echo "Installing fzf..."
-    # FIXED: Drops existing, non-empty paths to prevent git clone deployment collisions
-    rm -rf "$HOME/.fzf"
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --all
+    ~/.fzf/install --bin
     echo "✅ Fzf installed"
 fi
 
@@ -98,35 +94,10 @@ if [[ -d "$HOME/.config/fish" && ! -d "$HOME/.config/fish/.git" ]]; then
 fi
 
 if [[ ! -d "$HOME/.config/fish" ]]; then
-    read -p "Enter your fish-config GitHub repo URL (SSH) [Leave blank to skip]: " repo_url
-    
-    if [[ -n "$repo_url" ]]; then
-        git clone "$repo_url" "$HOME/.config/fish"
-        echo "✅ Fish config cloned"
-    else
-        echo "⏭️  Skipping config cloning, generating local structure..."
-        mkdir -p "$HOME/.config/fish"
-        touch "$HOME/.config/fish/config.fish"
-    fi
+    git clone https://github.com/gavvahar/fish-terminal.git "$HOME/.config/fish"
+    echo "✅ Fish config cloned"
 else
     echo "✅ Fish config already in place"
-fi
-
-# ── Path and Integration Logic ─────────────────────────────────────────────────
-if [[ -d "$HOME/.local/bin" ]]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
-
-# FIXED: Smart initialization check. If the config file was cloned from your repo
-# and already contains zoxide/path setups, this block skips configuration appending entirely.
-if [[ -f "$HOME/.config/fish/config.fish" ]]; then
-    if ! grep -q "zoxide" "$HOME/.config/fish/config.fish"; then
-        echo -e "\n# Initialize Zoxide (z command)\nif command -v zoxide &>/dev/null\n    zoxide init fish | source\nend" >> "$HOME/.config/fish/config.fish"
-    fi
-    
-    if ! grep -q "fish_add_path" "$HOME/.config/fish/config.fish"; then
-        echo -e "fish_add_path ~/.local/bin" >> "$HOME/.config/fish/config.fish"
-    fi
 fi
 
 # ── Done ──────────────────────────────────────────────────────────────────────
