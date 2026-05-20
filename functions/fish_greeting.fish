@@ -1,5 +1,6 @@
 function fish_greeting
     set hour (date "+%H")
+    set is_friday (test (date "+%u") -eq 5; and echo 1; or echo 0)
 
     if test $hour -lt 12
         set period "morning"
@@ -14,40 +15,73 @@ function fish_greeting
     set mem_info (free -h 2>/dev/null | awk '/^Mem:/ {print $3 "/" $2}')
     set cpu_load (cat /proc/loadavg 2>/dev/null | awk '{print $1}')
 
-    set messages \
-        "All systems operational." \
-        "Running at peak efficiency." \
-        "No anomalies detected." \
-        "Diagnostics complete. All clear." \
-        "Systems nominal. Standing by."
-    set status_msg $messages[(random 1 (count $messages))]
-
     set interior 54
     set sep (string repeat -n $interior "═")
-    set hdr "══[ J.A.R.V.I.S. ]"
-    set hdr_fill (string repeat -n (math $interior - (string length $hdr)) "═")
 
-    set_color --bold cyan
-    echo ""
-    echo "  ╔$hdr$hdr_fill╗"
-    echo "  ║"(string pad -r -w $interior "  Just A Rather Very Intelligent System")"║"
-    echo "  ╠$sep╣"
-    set_color normal
-    set_color cyan
+    if test $is_friday -eq 1
+        set messages \
+            "All systems green." \
+            "Ready when you are." \
+            "Standing by." \
+            "Online and operational." \
+            "Good to go." \
+            "At your service." \
+            "Systems clear."
+        set status_msg $messages[(random 1 (count $messages))]
+        set hdr "══[ F.R.I.D.A.Y. ]"
+        set hdr_fill (string repeat -n (math $interior - (string length $hdr)) "═")
 
-    echo "  ║"(string pad -r -w $interior "  Good $period, "(whoami)".")"║"
-    echo "  ║"(string pad -r -w $interior "  $datetime")"║"
-    if test -n "$uptime_str"
-        echo "  ║"(string pad -r -w $interior "  Uptime: $uptime_str")"║"
+        set_color --bold c084fc
+        echo ""
+        echo "  ╔$hdr$hdr_fill╗"
+        echo "  ║"(string pad -r -w $interior "  Female Replacement Intelligent Digital Asst.")"║"
+        echo "  ╠$sep╣"
+        set_color normal
+        set_color c084fc
+        echo "  ║"(string pad -r -w $interior "  Hey, "(whoami)". Good $period.")"║"
+        echo "  ║"(string pad -r -w $interior "  $datetime")"║"
+        if test -n "$uptime_str"
+            echo "  ║"(string pad -r -w $interior "  Uptime: $uptime_str")"║"
+        end
+        if test -n "$mem_info" -a -n "$cpu_load"
+            echo "  ║"(string pad -r -w $interior "  Memory: $mem_info   CPU: $cpu_load")"║"
+        end
+        set_color --bold c084fc
+        echo "  ╠$sep╣"
+        echo "  ║"(string pad -r -w $interior "  ◈ $status_msg")"║"
+        echo "  ╚$sep╝"
+        set_color normal
+    else
+        set messages \
+            "All systems operational." \
+            "Running at peak efficiency." \
+            "No anomalies detected." \
+            "Diagnostics complete. All clear." \
+            "Systems nominal. Standing by."
+        set status_msg $messages[(random 1 (count $messages))]
+        set hdr "══[ J.A.R.V.I.S. ]"
+        set hdr_fill (string repeat -n (math $interior - (string length $hdr)) "═")
+
+        set_color --bold cyan
+        echo ""
+        echo "  ╔$hdr$hdr_fill╗"
+        echo "  ║"(string pad -r -w $interior "  Just A Rather Very Intelligent System")"║"
+        echo "  ╠$sep╣"
+        set_color normal
+        set_color cyan
+        echo "  ║"(string pad -r -w $interior "  Good $period, "(whoami)".")"║"
+        echo "  ║"(string pad -r -w $interior "  $datetime")"║"
+        if test -n "$uptime_str"
+            echo "  ║"(string pad -r -w $interior "  Uptime: $uptime_str")"║"
+        end
+        if test -n "$mem_info" -a -n "$cpu_load"
+            echo "  ║"(string pad -r -w $interior "  Memory: $mem_info   CPU: $cpu_load")"║"
+        end
+        set_color --bold cyan
+        echo "  ╠$sep╣"
+        echo "  ║"(string pad -r -w $interior "  ◈ $status_msg")"║"
+        echo "  ╚$sep╝"
+        set_color normal
     end
-    if test -n "$mem_info" -a -n "$cpu_load"
-        echo "  ║"(string pad -r -w $interior "  Memory: $mem_info   CPU: $cpu_load")"║"
-    end
-
-    set_color --bold cyan
-    echo "  ╠$sep╣"
-    echo "  ║"(string pad -r -w $interior "  ◈ $status_msg")"║"
-    echo "  ╚$sep╝"
-    set_color normal
     echo ""
 end

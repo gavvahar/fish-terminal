@@ -31,13 +31,19 @@ function brief
 
     set interior 54
     set sep (string repeat -n $interior "═")
-    set hdr "══[ J.A.R.V.I.S. BRIEF ]"
+    if test (date "+%u") -eq 5
+        set hdr "══[ F.R.I.D.A.Y. BRIEF ]"
+        set accent c084fc
+    else
+        set hdr "══[ J.A.R.V.I.S. BRIEF ]"
+        set accent cyan
+    end
     set hdr_fill (string repeat -n (math $interior - (string length $hdr)) "═")
 
-    set_color --bold cyan
+    set_color --bold $accent
     echo ""
     echo "  ╔$hdr$hdr_fill╗"
-    set_color cyan
+    set_color $accent
     echo "  ║"(string pad -r -w $interior "  Good $period. Here is your briefing.")"║"
     echo "  ║"(string pad -r -w $interior "  $datetime")"║"
     if test (count $weather_lines) -gt 0
@@ -53,9 +59,9 @@ function brief
             end
         end
     end
-    set_color --bold cyan
+    set_color --bold $accent
     echo "  ╠$sep╣"
-    set_color cyan
+    set_color $accent
     echo "  ║"(string pad -r -w $interior "  Uptime:   $uptime_str")"║"
     echo "  ║"(string pad -r -w $interior "  Memory:   $mem_info")"║"
     echo "  ║"(string pad -r -w $interior "  CPU:      $cpu_load")"║"
@@ -63,7 +69,7 @@ function brief
     if test -n "$ip_addr"
         echo "  ║"(string pad -r -w $interior "  Network:  $ip_addr")"║"
     end
-    set_color --bold cyan
+    set_color --bold $accent
     echo "  ╚$sep╝"
     set_color normal
     echo ""

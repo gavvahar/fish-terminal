@@ -1,5 +1,9 @@
 function fish_command_not_found
-    set_color cyan
+    if test (date "+%u") -eq 5
+        set_color c084fc
+    else
+        set_color cyan
+    end
     printf "  ◈ "
     set_color normal
     printf "Command not recognized: "

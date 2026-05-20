@@ -1,15 +1,28 @@
 # 1. Ensure Fish can find zoxide and other local binaries
 fish_add_path $HOME/.local/bin
 
-# JARVIS color theme
-set -g fish_color_command cyan
-set -g fish_color_keyword blue
-set -g fish_color_param white
-set -g fish_color_error red
-set -g fish_color_comment brblack
-set -g fish_color_quote yellow
-set -g fish_color_operator cyan
-set -g fish_color_autosuggestion brblack
+# AI theme — FRIDAY on Fridays, JARVIS all other days
+if test (date "+%u") -eq 5
+    set -g fish_color_command c084fc
+    set -g fish_color_keyword fbbf24
+    set -g fish_color_param white
+    set -g fish_color_error ff4444
+    set -g fish_color_comment 553366
+    set -g fish_color_quote f472b6
+    set -g fish_color_operator c084fc
+    set -g fish_color_autosuggestion 553366
+    set -gx STARSHIP_CONFIG ~/.config/fish/starship-friday.toml
+else
+    set -g fish_color_command cyan
+    set -g fish_color_keyword blue
+    set -g fish_color_param white
+    set -g fish_color_error red
+    set -g fish_color_comment brblack
+    set -g fish_color_quote yellow
+    set -g fish_color_operator cyan
+    set -g fish_color_autosuggestion brblack
+    set -gx STARSHIP_CONFIG ~/.config/fish/starship.toml
+end
 
 # 2. Starship prompt
 starship init fish | source
