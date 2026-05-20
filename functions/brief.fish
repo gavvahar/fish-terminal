@@ -42,12 +42,14 @@ function brief
     echo "  ║"(string pad -r -w $interior "  $datetime")"║"
     if test (count $weather_lines) -gt 0
         echo "  ║"(string pad -r -w $interior "")"║"
-        if test (count $weather_lines) -eq 1
-            echo "  ║"(string pad -r -w $interior "  Weather:  $weather_lines[1]")"║"
-        else
-            echo "  ║"(string pad -r -w $interior "  Weather:")"║"
-            for w in $weather_lines
-                echo "  ║"(string pad -r -w $interior "    $w")"║"
+        echo "  ║"(string pad -r -w $interior "  Weather:")"║"
+        for w in $weather_lines
+            set parts (string split ':::' $w)
+            if test (count $parts) -ge 3
+                set wloc (string pad -r -w 17 (string shorten -m 17 $parts[1]))
+                set wtime $parts[2]
+                set wcond $parts[3]
+                echo "  ║"(string pad -r -w $interior "    $wloc  $wtime  $wcond")"║"
             end
         end
     end
