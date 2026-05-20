@@ -1,6 +1,9 @@
 # 1. Ensure Fish can find zoxide and other local binaries
 fish_add_path $HOME/.local/bin
 
+# 2. Starship prompt
+starship init fish | source
+
 if status is-interactive
     # 2. Initialize zoxide (this automatically creates the native 'z' and 'zi' commands)
     zoxide init fish | source

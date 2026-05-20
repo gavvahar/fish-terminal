@@ -39,6 +39,16 @@ else
     echo "✅ Fish is already the default shell"
 fi
 
+# ── Starship ──────────────────────────────────────────────────────────────────
+if command -v starship &>/dev/null; then
+    echo "✅ Starship already installed"
+else
+    echo "Installing Starship..."
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir ~/.local/bin
+    starship preset nerd-font-symbols -o ~/.config/starship.toml
+    echo "✅ Starship installed"
+fi
+
 # ── Zoxide ────────────────────────────────────────────────────────────────────
 if command -v zoxide &>/dev/null; then
     echo "✅ Zoxide already installed"
