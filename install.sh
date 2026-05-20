@@ -85,6 +85,7 @@ else
             rm Miniconda3-latest-Linux-x86_64.sh
         fi
         "$HOME/miniconda3/bin/conda" init fish
+        "$HOME/miniconda3/bin/conda" config --set changeps1 false
         echo "✅ Miniconda installed"
     else
         echo "⏭️  Skipping Miniconda"
