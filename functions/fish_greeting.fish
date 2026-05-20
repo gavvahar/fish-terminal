@@ -11,29 +11,43 @@ function fish_greeting
 
     set datetime (date "+%A, %B %d %Y — %I:%M %p")
     set uptime_str (uptime -p 2>/dev/null | string replace 'up ' '')
+    set mem_info (free -h 2>/dev/null | awk '/^Mem:/ {print $3 "/" $2}')
+    set cpu_load (cat /proc/loadavg 2>/dev/null | awk '{print $1}')
+
+    set messages \
+        "All systems operational." \
+        "Running at peak efficiency." \
+        "No anomalies detected." \
+        "Diagnostics complete. All clear." \
+        "Systems nominal. Standing by."
+    set status_msg $messages[(random 1 (count $messages))]
+
     set interior 54
+    set sep (string repeat -n $interior "═")
+    set hdr "══[ J.A.R.V.I.S. ]"
+    set hdr_fill (string repeat -n (math $interior - (string length $hdr)) "═")
 
     set_color --bold cyan
     echo ""
-    echo "  ╔══[ J.A.R.V.I.S. ]════════════════════════════════════╗"
-    echo "  ║  Just A Rather Very Intelligent System               ║"
-    echo "  ╠══════════════════════════════════════════════════════╣"
+    echo "  ╔$hdr$hdr_fill╗"
+    echo "  ║"(string pad -r -w $interior "  Just A Rather Very Intelligent System")"║"
+    echo "  ╠$sep╣"
     set_color normal
     set_color cyan
 
-    set l1 "  Good $period, "(whoami)"."
-    set l2 "  $datetime"
-    echo "  ║$l1"(string repeat -n (math $interior - (string length $l1)) " ")"║"
-    echo "  ║$l2"(string repeat -n (math $interior - (string length $l2)) " ")"║"
+    echo "  ║"(string pad -r -w $interior "  Good $period, "(whoami)".")"║"
+    echo "  ║"(string pad -r -w $interior "  $datetime")"║"
     if test -n "$uptime_str"
-        set l3 "  Uptime: $uptime_str"
-        echo "  ║$l3"(string repeat -n (math $interior - (string length $l3)) " ")"║"
+        echo "  ║"(string pad -r -w $interior "  Uptime: $uptime_str")"║"
+    end
+    if test -n "$mem_info" -a -n "$cpu_load"
+        echo "  ║"(string pad -r -w $interior "  Memory: $mem_info   CPU: $cpu_load")"║"
     end
 
     set_color --bold cyan
-    echo "  ╠══════════════════════════════════════════════════════╣"
-    echo "  ║  ◈ All systems operational.                          ║"
-    echo "  ╚══════════════════════════════════════════════════════╝"
+    echo "  ╠$sep╣"
+    echo "  ║"(string pad -r -w $interior "  ◈ $status_msg")"║"
+    echo "  ╚$sep╝"
     set_color normal
     echo ""
 end

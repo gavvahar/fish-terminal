@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 continuation_prompt = "[.](bright-black) "
+right_format = "$time   $battery"
 
 [character]
 success_symbol = "[❯](bold cyan)"
@@ -63,8 +64,27 @@ symbol = "az "
 full_symbol = "full "
 charging_symbol = "charging "
 discharging_symbol = "discharging "
-unknown_symbol = "unknown "
+unknown_symbol = ""
 empty_symbol = "empty "
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 20
+style = "bold red"
+
+[[battery.display]]
+threshold = 50
+style = "bold yellow"
+
+[[battery.display]]
+threshold = 100
+style = "bold cyan"
+
+[time]
+disabled = false
+style = "bold cyan"
+format = "[$time]($style)"
+time_format = "%I:%M %p"
 
 [buf]
 symbol = "buf "
