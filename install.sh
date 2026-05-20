@@ -62,7 +62,6 @@ if command -v starship &>/dev/null; then
 else
     echo "Installing Starship..."
     curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir ~/.local/bin
-    starship preset nerd-font-symbols -o ~/.config/starship.toml
     echo "✅ Starship installed"
 fi
 
@@ -127,6 +126,11 @@ if [[ ! -d "$HOME/.config/fish" ]]; then
 else
     echo "✅ Fish config already in place"
 fi
+
+# ── Starship Config ───────────────────────────────────────────────────────────
+echo "Applying Starship config (plain-text-symbols + custom modules)..."
+cp "$HOME/.config/fish/starship.toml" "$HOME/.config/starship.toml"
+echo "✅ Starship config applied"
 
 # ── Done ──────────────────────────────────────────────────────────────────────
 echo ""
