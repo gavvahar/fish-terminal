@@ -33,8 +33,8 @@ if ! grep -q "$FISH_PATH" /etc/shells; then
 fi
 
 if [[ "$SHELL" != "$FISH_PATH" ]]; then
-    # FIXED: Explicitly targeted user via sudo to prevent interactive PAM failures
-    # when streaming / piping the deployment script over curl.
+    # Fixed: Using sudo along with explicitly passing $USER prevents the PAM auth failure
+    # when executing scripts piped directly from a curl command.
     sudo chsh -s "$FISH_PATH" "$USER"
     echo "✅ Fish set as default shell"
 else
@@ -55,8 +55,9 @@ if command -v fzf &>/dev/null; then
     echo "✅ Fzf already installed"
 else
     echo "Installing fzf..."
+    # FIXED: Drops existing, non-empty paths to prevent git clone deployment collisions
+    rm -rf "$HOME/.fzf"
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    # FIXED: Added --all flag to complete fzf installations cleanly without holding terminal prompt
     ~/.fzf/install --all
     echo "✅ Fzf installed"
 fi
@@ -99,8 +100,6 @@ fi
 if [[ ! -d "$HOME/.config/fish" ]]; then
     read -p "Enter your fish-config GitHub repo URL (SSH) [Leave blank to skip]: " repo_url
     
-    # FIXED: Wrapped git clone with safety block. Empty input string will safely 
-    # generate a default configuration structure rather than triggering 'set -e' crashes.
     if [[ -n "$repo_url" ]]; then
         git clone "$repo_url" "$HOME/.config/fish"
         echo "✅ Fish config cloned"
@@ -114,7 +113,6 @@ else
 fi
 
 # ── Path and Integration Logic ─────────────────────────────────────────────────
-# FIXED: Resolves "zoxide not found on $PATH" logic gate for local binaries.
 if [[ -d "$HOME/.local/bin" ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
