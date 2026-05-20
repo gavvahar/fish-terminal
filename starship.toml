@@ -1,12 +1,12 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 continuation_prompt = "[.](bright-black) "
-format = "$fill\n$all"
+format = "$fill[── J.A.R.V.I.S. ──](bold cyan)$fill\n$all"
 right_format = "$time   $battery"
 
 [fill]
 symbol = "─"
-style = "bright-black"
+style = "bold cyan"
 
 [character]
 success_symbol = "[❯](bold cyan)"
