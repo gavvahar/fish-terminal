@@ -33,7 +33,9 @@ if ! grep -q "$FISH_PATH" /etc/shells; then
 fi
 
 if [[ "$SHELL" != "$FISH_PATH" ]]; then
-    chsh -s "$FISH_PATH"
+    # Fixed: Using sudo along with explicitly passing $USER prevents the PAM auth failure
+    # when executing scripts piped directly from a curl command.
+    sudo chsh -s "$FISH_PATH" "$USER"
     echo "✅ Fish set as default shell"
 else
     echo "✅ Fish is already the default shell"
@@ -54,7 +56,7 @@ if command -v fzf &>/dev/null; then
 else
     echo "Installing fzf..."
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+    ~/.fzf/install --all
     echo "✅ Fzf installed"
 fi
 
@@ -99,6 +101,13 @@ if [[ ! -d "$HOME/.config/fish" ]]; then
     echo "✅ Fish config cloned"
 else
     echo "✅ Fish config already in place"
+fi
+
+# Ensure zoxide is initialized in the fish configuration if it's missing
+if [[ -f "$HOME/.config/fish/config.fish" ]]; then
+    if ! grep -q "zoxide init fish" "$HOME/.config/fish/config.fish"; then
+        echo "zoxide init fish | source" >> "$HOME/.config/fish/config.fish"
+    fi
 fi
 
 # ── Done ──────────────────────────────────────────────────────────────────────
