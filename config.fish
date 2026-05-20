@@ -7,9 +7,16 @@ starship init fish | source
 if status is-interactive
     # 2. Initialize zoxide (this automatically creates the native 'z' and 'zi' commands)
     zoxide init fish | source
-    
+
     # 3. Enable fzf keybindings and completions
     fzf --fish | source
+
+    # 4. Git abbreviations
+    abbr -a gs git status
+    abbr -a ga git add
+    abbr -a gc git commit
+    abbr -a gp git push
+    abbr -a gl git pull
 end
 
 # 4. Bitwarden SSH Agent Connection
