@@ -3,20 +3,20 @@
 continuation_prompt = "[.](bright-black) "
 
 [character]
-success_symbol = "[❯](bold #FF0090)"
-error_symbol = "[❯](bold #ff4444)"
+success_symbol = "[❯](bold cyan)"
+error_symbol = "[❯](bold red)"
 vimcmd_symbol = "[<](bold green)"
 vimcmd_visual_symbol = "[<](bold yellow)"
 vimcmd_replace_symbol = "[<](bold purple)"
 vimcmd_replace_one_symbol = "[<](bold purple)"
 
 [cmd_duration]
-style = "bold #ff6600"
+style = "bold yellow"
 min_time = 2000
 
 [username]
-style_user = "bold #FF0090"
-style_root = "bold #ff4444"
+style_user = "bold cyan"
+style_root = "bold red"
 show_always = false
 
 [hostname]
@@ -25,11 +25,11 @@ ssh_only = true
 style = "bold blue"
 
 [directory]
-style = "bold #00d4ff"
+style = "bold cyan"
 read_only = " ro"
 
 [git_branch]
-style = "bold #FF0090"
+style = "bold blue"
 symbol = "git "
 truncation_symbol = "..."
 
@@ -37,7 +37,7 @@ truncation_symbol = "..."
 tag_symbol = " tag "
 
 [git_status]
-style = "bold #ff6600"
+style = "bold cyan"
 ahead = ">"
 behind = "<"
 diverged = "<>"
@@ -45,11 +45,11 @@ renamed = "r"
 deleted = "x"
 
 [conda]
-style = "bold #00ff41"
+style = "bold blue"
 symbol = "conda "
 
 [python]
-style = "bold #00d4ff"
+style = "bold cyan"
 symbol = "py "
 format = 'via [${symbol}(${version} )]($style)'
 
@@ -365,5 +365,5 @@ command = "node --version"
 when = '[ "$CONDA_DEFAULT_ENV" != "base" ] && [ -f "$CONDA_PREFIX/bin/node" ]'
 ignore_timeout = true
 symbol = "nodejs "
-style = "bold #ff6600"
+style = "bold green"
 format = 'via [$symbol($output )]($style)'

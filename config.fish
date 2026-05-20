@@ -1,15 +1,15 @@
 # 1. Ensure Fish can find zoxide and other local binaries
 fish_add_path $HOME/.local/bin
 
-# Tokyo Drift color theme
-set -g fish_color_command FF0090
-set -g fish_color_keyword 00d4ff
+# JARVIS color theme
+set -g fish_color_command cyan
+set -g fish_color_keyword blue
 set -g fish_color_param white
-set -g fish_color_error ff4444
-set -g fish_color_comment 444466
-set -g fish_color_quote 00ff41
-set -g fish_color_operator 00d4ff
-set -g fish_color_autosuggestion 444466
+set -g fish_color_error red
+set -g fish_color_comment brblack
+set -g fish_color_quote yellow
+set -g fish_color_operator cyan
+set -g fish_color_autosuggestion brblack
 
 # 2. Starship prompt
 starship init fish | source
