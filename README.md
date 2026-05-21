@@ -19,30 +19,16 @@ brew install fish
 chsh -s $(which fish)
 ```
 
-### Zoxide (smart cd)
-
-```bash
-# Ubuntu/Debian
-sudo apt install zoxide
-
-# Mac
-brew install zoxide
-```
-
 ### Starship (prompt)
 
 ```bash
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-### Fzf (fuzzy finder)
+### Zoxide & Fzf
 
 ```bash
-# Ubuntu/Debian
-sudo apt install fzf
-
-# Mac
-brew install fzf
+curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/install-tools.sh | bash
 ```
 
 ### Miniconda (optional)
@@ -79,14 +65,7 @@ On a new machine, run:
 curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/install.sh | bash
 ```
 
-This will:
-
-1. Install fish, zoxide, and fzf
-2. Optionally install Miniconda
-3. Clone this config into `~/.config/fish`
-4. Set fish as your default shell
-
-After it completes, logout and login for all changes to take effect.
+This will back up any existing fish config and clone this repo into `~/.config/fish`.
 
 ## Update config.fish only
 
