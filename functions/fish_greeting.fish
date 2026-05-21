@@ -15,7 +15,7 @@ function fish_greeting
     set mem_info (free -h 2>/dev/null | awk '/^Mem:/ {print $3 "/" $2}')
     set cpu_load (cat /proc/loadavg 2>/dev/null | awk '{print $1}')
 
-    set interior 54
+    set interior 60
     set sep (string repeat -n $interior "═")
 
     if test $is_friday -eq 1
@@ -34,21 +34,21 @@ function fish_greeting
         set_color --bold c084fc
         echo ""
         echo "  ╔$hdr$hdr_fill╗"
-        echo "  ║"(string pad -r -w $interior "  Female Replacement Intelligent Digital Asst.")"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Female Replacement Intelligent Digital Asst."))"║"
         echo "  ╠$sep╣"
         set_color normal
         set_color c084fc
-        echo "  ║"(string pad -r -w $interior "  Hey, "(whoami)". Good $period.")"║"
-        echo "  ║"(string pad -r -w $interior "  $datetime")"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Hey, "(whoami)". Good $period."))"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  $datetime"))"║"
         if test -n "$uptime_str"
-            echo "  ║"(string pad -r -w $interior "  Uptime: $uptime_str")"║"
+            echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Uptime: $uptime_str"))"║"
         end
         if test -n "$mem_info" -a -n "$cpu_load"
-            echo "  ║"(string pad -r -w $interior "  Memory: $mem_info   CPU: $cpu_load")"║"
+            echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Memory: $mem_info   CPU: $cpu_load"))"║"
         end
         set_color --bold c084fc
         echo "  ╠$sep╣"
-        echo "  ║"(string pad -r -w $interior "  ◈ $status_msg")"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  ◈ $status_msg"))"║"
         echo "  ╚$sep╝"
         set_color normal
     else
@@ -65,21 +65,21 @@ function fish_greeting
         set_color --bold cyan
         echo ""
         echo "  ╔$hdr$hdr_fill╗"
-        echo "  ║"(string pad -r -w $interior "  Just A Rather Very Intelligent System")"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Just A Rather Very Intelligent System"))"║"
         echo "  ╠$sep╣"
         set_color normal
         set_color cyan
-        echo "  ║"(string pad -r -w $interior "  Good $period, "(whoami)".")"║"
-        echo "  ║"(string pad -r -w $interior "  $datetime")"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Good $period, "(whoami)"."))"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  $datetime"))"║"
         if test -n "$uptime_str"
-            echo "  ║"(string pad -r -w $interior "  Uptime: $uptime_str")"║"
+            echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Uptime: $uptime_str"))"║"
         end
         if test -n "$mem_info" -a -n "$cpu_load"
-            echo "  ║"(string pad -r -w $interior "  Memory: $mem_info   CPU: $cpu_load")"║"
+            echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Memory: $mem_info   CPU: $cpu_load"))"║"
         end
         set_color --bold cyan
         echo "  ╠$sep╣"
-        echo "  ║"(string pad -r -w $interior "  ◈ $status_msg")"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  ◈ $status_msg"))"║"
         echo "  ╚$sep╝"
         set_color normal
     end

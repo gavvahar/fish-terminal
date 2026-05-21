@@ -29,7 +29,7 @@ function brief
         end
     end
 
-    set interior 54
+    set interior 60
     set sep (string repeat -n $interior "═")
     if test (date "+%u") -eq 5
         set hdr "══[ F.R.I.D.A.Y. BRIEF ]"
@@ -44,8 +44,8 @@ function brief
     echo ""
     echo "  ╔$hdr$hdr_fill╗"
     set_color $accent
-    echo "  ║"(string pad -r -w $interior "  Good $period. Here is your briefing.")"║"
-    echo "  ║"(string pad -r -w $interior "  $datetime")"║"
+    echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Good $period. Here is your briefing."))"║"
+    echo "  ║"(string pad -r -w $interior (string sub -l $interior "  $datetime"))"║"
     if test (count $weather_lines) -gt 0
         echo "  ║"(string pad -r -w $interior "")"║"
         echo "  ║"(string pad -r -w $interior "  Weather:")"║"
@@ -55,19 +55,19 @@ function brief
                 set wloc (string pad -r -w 17 (string shorten -m 17 $parts[1]))
                 set wtime $parts[2]
                 set wcond $parts[3]
-                echo "  ║"(string pad -r -w $interior "    $wloc  $wtime  $wcond")"║"
+                echo "  ║"(string pad -r -w $interior (string sub -l $interior "    $wloc  $wtime  $wcond"))"║"
             end
         end
     end
     set_color --bold $accent
     echo "  ╠$sep╣"
     set_color $accent
-    echo "  ║"(string pad -r -w $interior "  Uptime:   $uptime_str")"║"
-    echo "  ║"(string pad -r -w $interior "  Memory:   $mem_info")"║"
-    echo "  ║"(string pad -r -w $interior "  CPU:      $cpu_load")"║"
-    echo "  ║"(string pad -r -w $interior "  Disk /:   $disk_root")"║"
+    echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Uptime:   $uptime_str"))"║"
+    echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Memory:   $mem_info"))"║"
+    echo "  ║"(string pad -r -w $interior (string sub -l $interior "  CPU:      $cpu_load"))"║"
+    echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Disk /:   $disk_root"))"║"
     if test -n "$ip_addr"
-        echo "  ║"(string pad -r -w $interior "  Network:  $ip_addr")"║"
+        echo "  ║"(string pad -r -w $interior (string sub -l $interior "  Network:  $ip_addr"))"║"
     end
     set_color --bold $accent
     echo "  ╚$sep╝"
