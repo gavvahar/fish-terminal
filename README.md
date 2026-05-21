@@ -47,11 +47,11 @@ brew install fzf
 
 ### Miniconda (optional)
 
-Download from [docs.conda.io](https://docs.conda.io/en/latest/miniconda.html) and run the installer, then run:
-
 ```bash
-conda init fish
+curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/install-conda.sh | bash
 ```
+
+This will install Miniconda if not already installed, run `conda init fish`, and disable auto-activation of the base environment.
 
 ### Bitwarden SSH Agent (optional)
 
