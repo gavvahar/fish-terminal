@@ -6,6 +6,12 @@ My personal fish shell configuration.
 
 Install these first before cloning:
 
+### Prerequisites
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/install-prereqs.sh | bash
+```
+
 ### Fish Shell
 
 ```bash
