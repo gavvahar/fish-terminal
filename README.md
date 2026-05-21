@@ -29,6 +29,12 @@ sudo apt install zoxide
 brew install zoxide
 ```
 
+### Starship (prompt)
+
+```bash
+curl -sS https://starship.rs/install.sh | sh
+```
+
 ### Fzf (fuzzy finder)
 
 ```bash
