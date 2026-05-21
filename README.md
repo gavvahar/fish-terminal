@@ -9,15 +9,10 @@ Install these first before cloning:
 ### Fish Shell
 
 ```bash
-# Ubuntu/Debian
-sudo apt install fish
-
-# Mac
-brew install fish
-
-# Set as default shell
-chsh -s $(which fish)
+curl -fsSL https://raw.githubusercontent.com/gavvahar/fish-terminal/main/install-fish.sh | bash
 ```
+
+This will install fish, add it to `/etc/shells`, and set it as your default shell.
 
 ### Starship (prompt)
 
