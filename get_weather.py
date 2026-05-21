@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, re
+import sys, re
 from datetime import datetime
 from urllib.request import urlopen
 
