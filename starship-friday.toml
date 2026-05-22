@@ -83,11 +83,11 @@ style = "bold yellow"
 
 [[battery.display]]
 threshold = 100
-style = "bold cyan"
+style = "bold #c084fc"
 
 [time]
 disabled = false
-style = "bold cyan"
+style = "bold #c084fc"
 format = "[$time]($style)"
 time_format = "%I:%M %p"
 
