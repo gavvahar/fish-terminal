@@ -17,6 +17,11 @@ if [[ "$tools" =~ ^[Yy]$ ]]; then
     curl -fsSL "$BASE/install-tools.sh" | bash
 else
     echo "Skipping tools install"
+    sed -i 's/ \$HOME\/.fzf\/bin//' "$HOME/.config/fish/config.fish"
+    sed -i '/# 2\. Initialize zoxide/d' "$HOME/.config/fish/config.fish"
+    sed -i '/zoxide init fish | source/d' "$HOME/.config/fish/config.fish"
+    sed -i '/# 3\. Enable fzf/d' "$HOME/.config/fish/config.fish"
+    sed -i '/fzf --fish | source/d' "$HOME/.config/fish/config.fish"
 fi
 
 echo ""
@@ -25,6 +30,7 @@ if [[ "$conda" =~ ^[Yy]$ ]]; then
     curl -fsSL "$BASE/install-conda.sh" | bash
 else
     echo "Skipping Conda install"
+    sed -i '/# >>> conda initialize >>>/,/# <<< conda initialize <<</d' "$HOME/.config/fish/config.fish"
 fi
 
 echo ""
