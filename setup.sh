@@ -12,7 +12,8 @@ echo "── Step 2: Clone Fish config ─────────────�
 curl -fsSL "$BASE/install.sh" | bash
 
 echo ""
-read -rp "── Step 3: Install tools (Zoxide, Fzf)? [y/N] " tools </dev/tty
+printf "── Step 3: Install tools (Zoxide, Fzf)? [y/N] " >/dev/tty
+read -r tools </dev/tty || true
 if [[ "$tools" =~ ^[Yy]$ ]]; then
     curl -fsSL "$BASE/install-tools.sh" | bash
 else
@@ -25,7 +26,8 @@ else
 fi
 
 echo ""
-read -rp "── Step 4: Install Conda? [y/N] " conda </dev/tty
+printf "── Step 4: Install Conda? [y/N] " >/dev/tty
+read -r conda </dev/tty || true
 if [[ "$conda" =~ ^[Yy]$ ]]; then
     curl -fsSL "$BASE/install-conda.sh" | bash
 else
