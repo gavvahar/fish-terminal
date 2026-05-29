@@ -70,8 +70,8 @@ This runs all steps in order:
 
 1. **Fish shell** — installs fish, adds it to `/etc/shells`, sets it as default
 2. **Fish config** — backs up any existing config and clones this repo into `~/.config/fish`
-3. **Tools** *(optional)* — installs Zoxide and Fzf; if skipped, removes their entries from `config.fish`
-4. **Conda** *(optional)* — installs Miniconda and initializes it for fish; if skipped, removes the conda block from `config.fish`
+3. **Tools** _(optional)_ — installs Zoxide and Fzf; if skipped, removes their entries from `config.fish`
+4. **Conda** _(optional)_ — installs Miniconda and initializes it for fish; if skipped, removes the conda block from `config.fish`
 
 Steps 3 and 4 prompt before running so you can skip what you don't need.
 
